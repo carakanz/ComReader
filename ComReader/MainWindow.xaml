@@ -1,0 +1,155 @@
+﻿<Window x:Class="ComReader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf" 
+        xmlns:local="clr-namespace:ComReader"
+        mc:Ignorable="d"
+        Title="Com Reader" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Com port" Grid.Column="0" Grid.Row="0"/>
+        <TextBox Text="{Binding Path=ComPort}" Grid.Column="1" Grid.Row="0"/>
+        <Button x:Name="ComPortConnectButton" Content="Connect" Grid.Column="2" Grid.Row="0" Click="ComConnect_Click"/>
+        
+        <Label Content="Tcp port" Grid.Column="0" Grid.Row="1"/>
+        <TextBox Text="{Binding Path=TcpPort}" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="TcpPortOppenButton" Content="Open" Grid.Column="2" Grid.Row="1" IsEnabled="False" Click="TcpPortOppenButton_Click"/>
+        
+        <Label Content="MySQL" Grid.Column="0" Grid.Row="2"/>
+        <TextBox Text="{Binding Path=ConnectString}" Grid.Column="1" Grid.Row="2"/>
+        <Button x:Name="BDConnectButton" Content="Connect" Grid.Column="2" Grid.Row="2" IsEnabled="False" Click="DBConnect_Click"/>
+
+        <Label Content="Name" Grid.Column="0" Grid.Row="3"/>
+        <TextBox Text="{Binding Path=SeriesName}" Grid.Column="1" Grid.Row="3"/>
+        <Button x:Name="NameOkButton" Content="Ok" Grid.Column="2" Grid.Row="3" IsEnabled="False" Click="NameOkButton_Click"/>
+
+        <Button x:Name="StartButton" Content="Start" Grid.ColumnSpan="3" Grid.Row="4" IsEnabled="False" Click="StartButton_Click"/>
+
+        <Grid Grid.ColumnSpan="3" Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Com buffer" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="ComBuffer" Grid.Column="1" Grid.Row="0"/>
+            <Label Content="Event cash/total" Grid.Column="2" Grid.Row="0"/>
+            <Label x:Name="EventNumber" Grid.Column="3" Grid.Row="0"/>
+            <Label Content="Queue size" Grid.Column="4" Grid.Row="0"/>
+            <Label x:Name="QueueSize" Grid.Column="5" Grid.Row="0"/>
+            <Label Content="Frame queue size" Grid.Column="6" Grid.Row="0"/>
+            <Label x:Name="FrameQueueSize" Grid.Column="7" Grid.Row="0"/>
+            
+            <Label Content="Com readed" Grid.Column="0" Grid.Row="1"/>
+            <Label x:Name="ComReaded" Grid.Column="1" Grid.Row="1"/>
+            <Label Content="Last Event" Grid.Column="2" Grid.Row="1"/>
+            <Label x:Name="LastEvent" Grid.Column="3" Grid.Row="1"/>
+            <Label Content="DB count" Grid.Column="4" Grid.Row="1"/>
+            <Label x:Name="DbCount" Grid.Column="5" Grid.Row="1"/>
+            <Label Content="Event queue size" Grid.Column="6" Grid.Row="1"/>
+            <Label x:Name="EventQueueSize" Grid.Column="7" Grid.Row="1"/>
+        </Grid>
+        <TabControl Grid.ColumnSpan="3" Grid.Row="6">
+            <TabItem Header="Log">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="LogTextBox" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Visible"
+                             AcceptsReturn="True"
+                             IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Event Log">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="EventLogTextBox" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Visible"
+                             AcceptsReturn="True"
+                             IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Event Log">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.25*"/>
+                        <ColumnDefinition Width="0.25*"/>
+                        <ColumnDefinition Width="0.25*"/>
+                        <ColumnDefinition Width="0.25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height="0.25*"/>
+                    </Grid.RowDefinitions>
+                    <oxy:Plot x:Name="PlotChannel0" Grid.Row="0" Grid.Column="0">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[0]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel1" Grid.Row="0" Grid.Column="1">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[1]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel2" Grid.Row="0" Grid.Column="2">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[2]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel3" Grid.Row="0" Grid.Column="3">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[3]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel4" Grid.Row="1" Grid.Column="0">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[4]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel5" Grid.Row="1" Grid.Column="1">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[5]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel6" Grid.Row="1" Grid.Column="2">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[6]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                    <oxy:Plot x:Name="PlotChannel7" Grid.Row="1" Grid.Column="3">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[7]}"/>
+                        </oxy:Plot.Series>
+                    </oxy:Plot>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
