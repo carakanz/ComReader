@@ -29,16 +29,6 @@
         <Label Content="Tcp port" Grid.Column="0" Grid.Row="1"/>
         <TextBox Text="{Binding Path=TcpPort}" Grid.Column="1" Grid.Row="1"/>
         <Button x:Name="TcpPortOppenButton" Content="Open" Grid.Column="2" Grid.Row="1" IsEnabled="False" Click="TcpPortOppenButton_Click"/>
-        
-        <Label Content="MySQL" Grid.Column="0" Grid.Row="2"/>
-        <TextBox Text="{Binding Path=ConnectString}" Grid.Column="1" Grid.Row="2"/>
-        <Button x:Name="BDConnectButton" Content="Connect" Grid.Column="2" Grid.Row="2" IsEnabled="False" Click="DBConnect_Click"/>
-
-        <Label Content="Name" Grid.Column="0" Grid.Row="3"/>
-        <TextBox Text="{Binding Path=SeriesName}" Grid.Column="1" Grid.Row="3"/>
-        <Button x:Name="NameOkButton" Content="Ok" Grid.Column="2" Grid.Row="3" IsEnabled="False" Click="NameOkButton_Click"/>
-
-        <Button x:Name="StartButton" Content="Start" Grid.ColumnSpan="3" Grid.Row="4" IsEnabled="False" Click="StartButton_Click"/>
 
         <Grid Grid.ColumnSpan="3" Grid.Row="5">
             <Grid.ColumnDefinitions>
@@ -62,21 +52,12 @@
             </Grid.RowDefinitions>
             <Label Content="Com buffer" Grid.Column="0" Grid.Row="0"/>
             <Label x:Name="ComBuffer" Grid.Column="1" Grid.Row="0"/>
-            <Label Content="Event cash/total" Grid.Column="2" Grid.Row="0"/>
-            <Label x:Name="EventNumber" Grid.Column="3" Grid.Row="0"/>
+            <Label Content="Frame count" Grid.Column="2" Grid.Row="0"/>
+            <Label x:Name="FrameCount" Grid.Column="3" Grid.Row="0"/>
             <Label Content="Queue size" Grid.Column="4" Grid.Row="0"/>
             <Label x:Name="QueueSize" Grid.Column="5" Grid.Row="0"/>
-            <Label Content="Frame queue size" Grid.Column="6" Grid.Row="0"/>
-            <Label x:Name="FrameQueueSize" Grid.Column="7" Grid.Row="0"/>
-            
-            <Label Content="Com readed" Grid.Column="0" Grid.Row="1"/>
-            <Label x:Name="ComReaded" Grid.Column="1" Grid.Row="1"/>
-            <Label Content="Last Event" Grid.Column="2" Grid.Row="1"/>
-            <Label x:Name="LastEvent" Grid.Column="3" Grid.Row="1"/>
-            <Label Content="DB count" Grid.Column="4" Grid.Row="1"/>
-            <Label x:Name="DbCount" Grid.Column="5" Grid.Row="1"/>
-            <Label Content="Event queue size" Grid.Column="6" Grid.Row="1"/>
-            <Label x:Name="EventQueueSize" Grid.Column="7" Grid.Row="1"/>
+            <Label Content="Clients count" Grid.Column="6" Grid.Row="0"/>
+            <Label x:Name="ClientsCount" Grid.Column="7" Grid.Row="0"/>
         </Grid>
         <TabControl Grid.ColumnSpan="3" Grid.Row="6">
             <TabItem Header="Log">
@@ -109,42 +90,42 @@
                     </Grid.RowDefinitions>
                     <oxy:Plot x:Name="PlotChannel0" Grid.Row="0" Grid.Column="0">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[0]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[0]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel1" Grid.Row="0" Grid.Column="1">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[1]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[1]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel2" Grid.Row="0" Grid.Column="2">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[2]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[2]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel3" Grid.Row="0" Grid.Column="3">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[3]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[3]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel4" Grid.Row="1" Grid.Column="0">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[4]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[4]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel5" Grid.Row="1" Grid.Column="1">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[5]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[5]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel6" Grid.Row="1" Grid.Column="2">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[6]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[6]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                     <oxy:Plot x:Name="PlotChannel7" Grid.Row="1" Grid.Column="3">
                         <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding Path=_dbFramePlotQueues[7]}"/>
+                            <oxy:LineSeries ItemsSource="{Binding Path=PlotPoints[7]}"/>
                         </oxy:Plot.Series>
                     </oxy:Plot>
                 </Grid>
