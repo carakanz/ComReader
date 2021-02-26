@@ -334,15 +334,7 @@ namespace ComReader
 
         private int ThreeBitToInt(byte[] data, int offset)
         {
-            byte[] fourBitData = new byte[] 
-            { 
-                0,
-                data[offset],
-                data[offset + 1],
-                data[offset + 2],
-            };
-
-            return BinaryPrimitives.ReadInt32BigEndian(fourBitData);
+            return 256 * 256 * (sbyte)data[offset] + 256 * data[offset + 1] + data[offset + 2];
         }
     }
 }

@@ -124,7 +124,7 @@ namespace Reader
         }
         private int ThreeBitToInt(byte[] data, int offset)
         {
-            return 256 * 256 * (int)data[offset] + 256 * (int)data[offset + 1] + (int)data[offset + 2];
+            return 256 * 256 * (sbyte)data[offset] + 256 * data[offset + 1] + data[offset + 2];
         }
     }
 }
